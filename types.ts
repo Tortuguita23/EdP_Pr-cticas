@@ -1,9 +1,17 @@
+
+
 export interface Trait {
   id: string;
   name: string;
   description: string;
   positiveIndicators: string[]; // Señales típicas
   negativeIndicators: string[]; // Señales de ausencia
+}
+
+// Added UserReflection interface to fix error in TraitReflector.tsx
+export interface UserReflection {
+  selectedVersion: 'A' | 'B' | null;
+  notes: string;
 }
 
 export type Phase = 'LANDING' | 'SELECTION' | 'PHASE_1' | 'PHASE_2' | 'PHASE_3' | 'COMPLETED';
@@ -34,17 +42,21 @@ export enum TraitId {
   Exigente = 'exigente',
 }
 
-export interface UserReflection {
-  selectedVersion: 'A' | 'B' | null;
-  notes: string;
+export interface HistoryEntry {
+  phaseLabel: string;
+  text: string;
+  userDominantTraits: string[];
+  userAbsentTraits: string[];
+  feedback: string;
 }
 
 export interface AppState {
   phase: Phase;
   scenario: ScenarioDef | null;
-  round: number; // To track attempts (1-3 for Ph1, 1-2 for Ph2)
+  round: number; 
   currentExercise: ExerciseContent | null;
   loading: boolean;
   error: string | null;
   evaluation: EvaluationResult | null;
+  history: HistoryEntry[];
 }
